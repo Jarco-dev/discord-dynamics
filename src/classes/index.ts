@@ -3,6 +3,7 @@ export { Client } from "./Client";
 export { EventLoader } from "./EventLoader";
 export { InteractionLoader } from "./InteractionLoader";
 export { Logger } from "./Logger";
+export { MetricsManager } from "./MectricsManager";
 export { MessageContext } from "./MessageContext";
 export { SecretConfig } from "./SecretConfig";
 export { Sender } from "./Sender";
