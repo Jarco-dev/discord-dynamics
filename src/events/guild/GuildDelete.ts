@@ -22,7 +22,7 @@ export default class GuildDeleteEventHandler extends EventHandler<"guildDelete">
         }
 
         if (!settings?.isWhitelisted) {
-            await this.client.prisma.guilds.delete({
+            await this.client.prisma.guilds.deleteMany({
                 where: { discordId: guild.id }
             });
         }
