@@ -1,6 +1,6 @@
 {
     "name": "dutch-dynamics",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "De discord bot achter discord dynamics",
     "main": "dist/index.js",
     "engines": {
