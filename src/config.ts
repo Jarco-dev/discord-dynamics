@@ -24,7 +24,7 @@ const config: Config = {
             GatewayIntentBits.MessageContent,
             GatewayIntentBits.GuildModeration,
             GatewayIntentBits.GuildMembers
-        ],
+        ]
     },
 
     // Bot version (acquired from package.json)

@@ -7,3 +7,56 @@ datasource db {
   url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
+
+model Guilds {
+  id        Int             @id @default(autoincrement())
+  discordId String          @unique
+  Users     Users[]
+  Roles     Roles[]
+  Groups    Groups[]
+  Settings  GuildSettings[]
+}
+
+enum GuildSetting {
+  IS_WHITELISTED
+  BAN_LOG_CHANNEL
+}
+
+model GuildSettings {
+  id      Int          @id @default(autoincrement())
+  type    GuildSetting
+  value   String
+  guildId Int?
+  Guild   Guilds?      @relation(fields: [guildId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model Users {
+  id        Int      @id @default(autoincrement())
+  discordId String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Guilds    Guilds[]
+  Groups    Groups[]
+}
+
+model Roles {
+  id        Int      @id @default(autoincrement())
+  discordId String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  guildId   Int
+  Guild     Guilds   @relation(fields: [guildId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  Groups    Groups[]
+}
+
+model Groups {
+  id          Int      @id @default(autoincrement())
+  name        String
+  permissions BigInt   @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  guildId     Int
+  Guild       Guilds   @relation(fields: [guildId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  Users       Users[]
+  Roles       Roles[]
+}

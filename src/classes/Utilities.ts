@@ -1,5 +1,6 @@
-import { Client } from "@/classes";
+import { BotPermissionsBitField, Client } from "@/classes";
 import {
+    BaseInteraction,
     EmbedBuilder,
     GuildChannelResolvable,
     GuildMember,
@@ -84,5 +85,46 @@ export class Utilities {
                   hasAll: missing.length === 0,
                   missing: missing
               };
+    }
+
+    public async getMemberBotPermissions(
+        source: BaseInteraction | GuildMember,
+        addAdminToGuildAdmin = true
+    ): Promise<BotPermissionsBitField> {
+        const member =
+            source instanceof GuildMember
+                ? source
+                : await source.guild!.members.fetch(source.user.id);
+        const groups = await this.client.prisma.groups.findMany({
+            where: {
+                Guild: { discordId: source.guild!.id },
+                OR: [
+                    { Users: { some: { discordId: member.id } } },
+                    {
+                        Roles: {
+                            some: {
+                                discordId: {
+                                    in: member.roles.cache.map(r => r.id)
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            select: {
+                permissions: true
+            }
+        });
+
+        const permissions = new BotPermissionsBitField();
+
+        if (addAdminToGuildAdmin && member.permissions.has("Administrator")) {
+            permissions.add(BotPermissionsBitField.Flags.Administrator);
+        }
+        if (groups.length > 0) {
+            permissions.add(groups.reduce((m, g) => m | g.permissions, 0n));
+        }
+
+        return permissions;
     }
 }

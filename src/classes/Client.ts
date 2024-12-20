@@ -6,7 +6,8 @@ import {
     Utilities,
     InteractionLoader,
     EventLoader,
-    TaskLoader
+    TaskLoader,
+    MessageContext
 } from "@/classes";
 import { PrismaClient } from "@prisma/client";
 import { Client as DiscordClient } from "discord.js";
@@ -18,6 +19,7 @@ export class Client extends DiscordClient {
     public prisma = new PrismaClient();
     public sender = new Sender(this);
     public utils = new Utilities(this);
+    public messageContext = new MessageContext(this);
     public interactionLoader = new InteractionLoader(this);
     public eventLoader = new EventLoader(this);
     public taskLoader = new TaskLoader(this);
