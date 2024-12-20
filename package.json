@@ -1,7 +1,7 @@
 {
-    "name": "bot-layout-ts",
+    "name": "discord-dynamics",
     "version": "0.0.0",
-    "description": "The typescript discord bot layout",
+    "description": "De discord bot achter discord dynamics",
     "main": "dist/index.js",
     "engines": {
         "node": ">=20.15.1"
@@ -19,7 +19,7 @@
     "author": "Jarco-dev",
     "dependencies": {
         "@prisma/client": "^5.7.0",
-        "discord.js": "^14.14.1",
+        "discord.js": "14.15.3",
         "dotenv": "^16.3.1",
         "moment": "^2.29.4"
     },

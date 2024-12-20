@@ -1,5 +1,5 @@
 import { Config } from "@/types";
-import { IntentsBitField } from "discord.js";
+import { GatewayIntentBits } from "discord.js";
 
 const config: Config = {
     // Bot colors
@@ -17,7 +17,14 @@ const config: Config = {
 
     // Discord client options
     CLIENT_OPTIONS: {
-        intents: [IntentsBitField.Flags.Guilds]
+        intents: [
+            GatewayIntentBits.Guilds,
+            GatewayIntentBits.GuildMessages,
+            GatewayIntentBits.GuildMessageReactions,
+            GatewayIntentBits.MessageContent,
+            GatewayIntentBits.GuildModeration,
+            GatewayIntentBits.GuildMembers
+        ],
     },
 
     // Bot version (acquired from package.json)
