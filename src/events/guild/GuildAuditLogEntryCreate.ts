@@ -35,7 +35,7 @@ export default class GuildAuditLogEntryCreate extends EventHandler<"guildAuditLo
         }
 
         const target = await this.client.users.fetch(log.targetId);
-        const executor = await this.client.users.fetch(log.targetId);
+        const executor = await this.client.users.fetch(log.executorId);
         const embed = this.client.utils
             .defaultEmbed()
             .setTitle(`Member banned: ${target.username}`)
