@@ -6,6 +6,8 @@ services:
             - DATABASE_URL=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mariadb:3306/${MYSQL_DATABASE}
             - LOG_LEVEL=${LOG_LEVEL}
             - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+            - METRICS_PORT=${METRICS_PORT}
+            - MAIN_GUILD=${MAIN_GUILD}
         volumes:
             - "bot_data:/usr/src/app/storage"
         depends_on:

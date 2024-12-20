@@ -9,6 +9,7 @@ import {
 export abstract class MessageContextMenuCommand {
     protected readonly client = Client;
     public readonly data: ReturnType<ContextMenuCommandBuilder["toJSON"]>;
+    public readonly mainGuildOnly: boolean = false;
     public readonly enabled: boolean;
 
     protected constructor(p: {

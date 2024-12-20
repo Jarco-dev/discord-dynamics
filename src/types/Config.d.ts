@@ -10,6 +10,7 @@ export interface Config {
         ERROR: { EMOJI: string; COLOR: HexColorString };
         TIME: { EMOJI: string; COLOR: HexColorString };
     };
+    NEEDED_BOT_PERMISSIONS: PermissionResolvable;
     CLIENT_OPTIONS: ClientOptions;
     VERSION: string;
 }

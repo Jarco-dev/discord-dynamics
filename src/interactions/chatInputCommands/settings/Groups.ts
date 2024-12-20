@@ -14,6 +14,7 @@ import GroupPermissionsRemoveStringSelectMenuComponent from "@/stringMenu/settin
 export default class GroupsChatInputCommand extends ChatInputCommand {
     constructor() {
         super({
+            mainGuildOnly: true,
             builder: new SlashCommandBuilder()
                 .setName("groups")
                 .setDescription("Manage the bots permission groups")

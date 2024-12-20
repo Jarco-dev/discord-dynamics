@@ -1,5 +1,5 @@
 import { Config } from "@/types";
-import { GatewayIntentBits } from "discord.js";
+import { GatewayIntentBits, PermissionsBitField } from "discord.js";
 
 const config: Config = {
     // Bot colors
@@ -15,13 +15,17 @@ const config: Config = {
         TIME: { EMOJI: "⏱", COLOR: "#F88038" }
     },
 
+    NEEDED_BOT_PERMISSIONS: [
+        PermissionsBitField.Flags.ViewChannel,
+        PermissionsBitField.Flags.SendMessages,
+        PermissionsBitField.Flags.ViewAuditLog
+    ],
+
     // Discord client options
     CLIENT_OPTIONS: {
         intents: [
             GatewayIntentBits.Guilds,
             GatewayIntentBits.GuildMessages,
-            GatewayIntentBits.GuildMessageReactions,
-            GatewayIntentBits.MessageContent,
             GatewayIntentBits.GuildModeration,
             GatewayIntentBits.GuildMembers
         ]

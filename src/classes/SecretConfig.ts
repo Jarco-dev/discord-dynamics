@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { LogLevel } from "@/types";
 import { Logger } from "@/classes";
+import { Snowflake } from "discord.js";
 
 export class SecretConfig {
     public DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN as string;
@@ -9,6 +10,7 @@ export class SecretConfig {
         | string
         | undefined;
     public LOG_LEVEL = process.env.LOG_LEVEL as LogLevel;
+    public MAIN_GUILD = process.env.MAIN_GUILD as Snowflake;
     public METRICS_PORT = parseInt(process.env.METRICS_PORT ?? "NaN");
 
     constructor() {}
@@ -32,6 +34,10 @@ export class SecretConfig {
             )
         ) {
             errors.push("LOG_LEVEL is a invalid value");
+        }
+
+        if (!this.MAIN_GUILD) {
+            errors.push("MAIN_GUILD is required but not given");
         }
 
         if (!this.METRICS_PORT) {

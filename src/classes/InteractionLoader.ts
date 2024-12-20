@@ -440,6 +440,7 @@ export class InteractionLoader {
 
         // Gather command data
         const globalCommands: ApplicationCommandDataResolvable[] = [];
+        const mainGuildCommands: ApplicationCommandDataResolvable[] = [];
 
         const addCommand = (
             command:
@@ -448,6 +449,10 @@ export class InteractionLoader {
                 | UserContextMenuCommand
         ) => {
             if (!command.enabled) return;
+            if (command.mainGuildOnly) {
+                mainGuildCommands.push(command.data);
+                return;
+            }
             globalCommands.push(command.data);
         };
 
@@ -472,6 +477,20 @@ export class InteractionLoader {
             .catch(err => {
                 this.client.logger.error(
                     "Error while updating global application command(s)",
+                    err
+                );
+            });
+
+        this.client.application.commands
+            .set(mainGuildCommands, this.client.sConfig.MAIN_GUILD)
+            .then(commands => {
+                this.client.logger.info(
+                    `[InteractionLoader] Updated ${commands.size} main guild application command(s)`
+                );
+            })
+            .catch(err => {
+                this.client.logger.error(
+                    "Error while updating main guild application command(s)",
                     err
                 );
             });

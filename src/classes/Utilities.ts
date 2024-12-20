@@ -4,8 +4,10 @@ import {
     EmbedBuilder,
     GuildChannelResolvable,
     GuildMember,
-    PermissionResolvable
+    PermissionResolvable,
+    Snowflake
 } from "discord.js";
+import { GuildSettings } from "@/types";
 
 export class Utilities {
     private client: Client;
@@ -126,5 +128,29 @@ export class Utilities {
         }
 
         return permissions;
+    }
+
+    public async getGuildSettings(
+        guildId: Snowflake
+    ): Promise<Partial<GuildSettings> | undefined> {
+        const dbSettings = await this.client.prisma.guildSettings.findMany({
+            where: { Guild: { discordId: guildId } },
+            select: { type: true, value: true }
+        });
+        if (dbSettings.length === 0) return undefined;
+
+        const settings: Partial<GuildSettings> = {};
+        for (const setting of dbSettings) {
+            switch (setting.type) {
+                case "IS_WHITELISTED":
+                    settings.isWhitelisted = !!parseInt(setting.value);
+                    break;
+                case "BAN_LOG_CHANNEL":
+                    settings.banLogChannel = setting.value;
+                    break;
+            }
+        }
+
+        return settings;
     }
 }
