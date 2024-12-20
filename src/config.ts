@@ -26,8 +26,7 @@ const config: Config = {
         intents: [
             GatewayIntentBits.Guilds,
             GatewayIntentBits.GuildMessages,
-            GatewayIntentBits.GuildModeration,
-            GatewayIntentBits.GuildMembers
+            GatewayIntentBits.GuildModeration
         ]
     },
 
